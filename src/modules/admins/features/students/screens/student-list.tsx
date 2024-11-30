@@ -25,25 +25,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StudentListComponent } from "../components/student-list";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { NoListComponent } from "@/modules/admins/components/no-list";
 import {
   Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useListStudents } from "../store/hooks";
 import StudentCreateComp from "../components/student-create";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useListStudents } from "../store/hooks";
 
-// interface Students {
-//   id: number;
-//   fullName: string;
-//   status: "Present" | "Absent" | "Late";
-//   grade: string;
-//   teacher: string;
-//   joinedAt: string;
-//   profilePicture: string;
-// }
+interface Students {
+  id: number;
+  fullName: string;
+  status: "Present" | "Absent" | "Late";
+  grade: string;
+  teacher: string;
+  joinedAt: string;
+  profilePicture: string;
+}
 
 const StudentListSkeleton = () => {
   return (
@@ -121,7 +128,7 @@ const StudentListSkeleton = () => {
 
 const StudentList: FC = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
-  // const [filteredStudents, setFilteredStudents] = useState<Students[]>([{id:1}]);
+  const [filteredStudents, setFilteredStudents] = useState<Students[]>([]);
   const [studentCreateModal, setStudentCreateModal] = useState(false);
 
   const { data: studentsData, isLoading: isStudentsLoading } = useListStudents({
@@ -272,7 +279,7 @@ const StudentList: FC = () => {
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
                   Showing <strong>1-10</strong> of{" "}
-                  {/* <strong>{filteredStudents.length}</strong> students */}
+                  <strong>{filteredStudents.length}</strong> students
                 </div>
               </CardFooter>
             </Card>

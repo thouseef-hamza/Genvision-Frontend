@@ -1,8 +1,13 @@
 import {
   BookOpenCheck,
+  BookText,
+  Calendar,
   Command,
   Home,
+  Inbox,
   NotebookPen,
+  Search,
+  Settings,
   Users,
 } from "lucide-react";
 

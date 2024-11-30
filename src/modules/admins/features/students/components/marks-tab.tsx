@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import {
   Table,
@@ -9,11 +15,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ChevronDownIcon } from "lucide-react";
 import { FC, useState } from "react";
 import ExamGradeModal from "./create-marks";
 import { Dialog } from "@/components/ui/dialog";
 import { useParams } from "react-router-dom";
-import { useSMarkListAPI } from "../store/hooks";
+import { useSMarkCreateAPI, useSMarkListAPI } from "../store/hooks";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const MarksTableSkeleton = () => {
@@ -35,7 +42,7 @@ const MarksTableSkeleton = () => {
                 "Total Marks",
                 "Marks Obtained",
                 "Grade",
-              ].map((_, index) => (
+              ].map((header, index) => (
                 <TableHead key={index}>
                   <Skeleton className="h-4 w-24" />
                 </TableHead>
@@ -77,6 +84,8 @@ const Marks: FC = () => {
   const {
     data: MARKS_DATA,
     isLoading: IS_MARKSDATA_LOADING,
+    isSuccess: IS_MARKSDATA_SUCCESS,
+    isError,
   } = useSMarkListAPI(id);
 
   console.log(
@@ -112,7 +121,7 @@ const Marks: FC = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {MARKS_DATA?.data.map((exam:any) => (
+                {MARKS_DATA?.data.map((exam) => (
                   <TableRow key={exam.id}>
                     <TableCell>{exam?.examSubjects?.exam?.name}</TableCell>
                     <TableCell>

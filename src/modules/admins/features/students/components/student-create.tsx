@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -10,10 +11,10 @@ import Yup from "@/lib/utils";
 import { useFormik } from "formik";
 import { useCreateStudent } from "../store/hooks";
 import { toast } from "@/hooks/use-toast";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 
-const StudentCreateComp = ({ modalAction }: any) => {
+const StudentCreateComp = ({ modalAction }) => {
   const { mutate, isPending, isSuccess, error, isError } = useCreateStudent();
   const {
     handleSubmit,
@@ -72,7 +73,6 @@ const StudentCreateComp = ({ modalAction }: any) => {
         variant: "destructive",
         title: "Student not created",
         description:
-        // @ts-ignore
           error?.response?.data.message ||
           "An error occurred while creating the student.",
       });

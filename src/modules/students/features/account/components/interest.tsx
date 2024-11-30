@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { X, FileText, Loader2 } from "lucide-react";
+import { X, Plus, FileText, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
@@ -27,9 +28,9 @@ import {
 } from "../store/hooks";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// interface Interest {
-//   name: string;
-// }
+interface Interest {
+  name: string;
+}
 
 const InterestSkeleton = () => {
   return (
@@ -55,6 +56,7 @@ const InterestSkeleton = () => {
 };
 
 const InterestsComponent = () => {
+  const [interests, setInterests] = useState<Interest[]>([]);
   const { toast } = useToast();
   const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -128,10 +130,8 @@ const InterestsComponent = () => {
     if (isCreateError || isDeleteError) {
       toast({
         title: createError
-        // @ts-ignore
           ? createError.response?.data.message
           : deleteError
-          // @ts-ignore
           ? deleteError.response?.data.message
           : "Something went wrong",
         variant: "destructive",
@@ -176,7 +176,7 @@ const InterestsComponent = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-2">
-              {INTERESTS?.data.map((interest: any) => (
+              {INTERESTS?.data.map((interest) => (
                 <Badge
                   key={interest.name}
                   variant={

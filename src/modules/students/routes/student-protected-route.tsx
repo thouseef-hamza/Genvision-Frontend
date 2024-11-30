@@ -7,6 +7,10 @@ interface StudentProtectedRouteProps {
   children: ReactNode;
 }
 
+interface JwtPayload {
+  userRole: string;
+}
+
 const StudentProtectedRoute: React.FC<StudentProtectedRouteProps> = ({
   children,
 }) => {
@@ -18,9 +22,12 @@ const StudentProtectedRoute: React.FC<StudentProtectedRouteProps> = ({
     return <Navigate to="/auth/login" />;
   }
 
-  // @ts-ignore
+  console.log(
+    token,
+    "0000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  );
+
   const decodedToken = jwtDecode(token?.accessToken);
-  // @ts-ignore
   if (decodedToken?.userRole === "student") {
     return <>{children}</>;
   }

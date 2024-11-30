@@ -52,8 +52,8 @@ const CreateSubject = ({ modalAction, subjectData = {} }: any) => {
     if (isCreateError) {
       toast({
         variant: "destructive",
-        title:
         // @ts-ignore
+        title:
           createError?.response?.data?.message ||
           "Uh oh! Something went wrong during creation.",
         description: "Try Again",

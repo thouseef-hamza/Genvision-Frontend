@@ -1,5 +1,11 @@
+import React from "react";
 import {
+  Book,
   ClipboardList,
+  LineChart as LineChartIcon,
+  MessageSquare,
+  Bell,
+  Calendar,
   Trophy,
   Clock,
 } from "lucide-react";
@@ -10,6 +16,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import {
   LineChart,
   Line,
@@ -18,6 +26,8 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  BarChart,
+  Bar,
   Legend,
 } from "recharts";
 import { useDashboard } from "../store/hooks";
@@ -69,9 +79,24 @@ const DashboardSkeleton = () => {
 };
 
 const Dashboard = () => {
-  const { data, isLoading } = useDashboard();
+  // Sample performance data for the line chart
+  // const performanceData = [
+  //   { month: "Sep", Mathematics: 85, Physics: 78, Literature: 92 },
+  //   { month: "Oct", Mathematics: 88, Physics: 82, Literature: 88 },
+  //   { month: "Nov", Mathematics: 92, Physics: 85, Literature: 90 },
+  //   { month: "Dec", Mathematics: 90, Physics: 88, Literature: 94 },
+  // ];
 
-  const subjects = data?.data.ScorePerformance.reduce((acc : any, item: any) => {
+  // Sample assignment completion data for the bar chart
+  const assignmentData = [
+    { subject: "Mathematics", completed: 15, pending: 3 },
+    { subject: "Physics", completed: 12, pending: 4 },
+    { subject: "Literature", completed: 10, pending: 2 },
+  ];
+
+  const { data, isLoading, isSuccess, isError } = useDashboard();
+
+  const subjects = data?.data.ScorePerformance.reduce((acc, item) => {
     Object.keys(item).forEach((key) => {
       if (key !== "month" && !acc.includes(key)) {
         acc.push(key); // Add the subject if it's not already added
@@ -176,7 +201,7 @@ const Dashboard = () => {
                 <Tooltip />
                 <Legend />
                 {/* Dynamically set the Line chart to the subject */}
-                {subjects?.map((subject : any, index :any) => (
+                {subjects?.map((subject, index) => (
                   <Line
                     key={subject}
                     type="monotone"

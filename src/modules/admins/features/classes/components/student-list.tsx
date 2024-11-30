@@ -4,10 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { Search, X, CheckCircle2, Save, User, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import {
   useAddStudentsToClass,
   useListStudents,
 } from "../../students/store/hooks";
+import { useAddSubjectsToClass } from "../store/hooks";
 import { toast } from "@/hooks/use-toast";
 
 interface StudentProfile {
@@ -29,7 +32,15 @@ interface Student {
   studentProfile: StudentProfile;
 }
 
-const StudentGridSelector = ({ classId = null }:any) => {
+interface StudentResponse {
+  data: Student[];
+  totalRecords: number;
+  totalPages: number;
+  currentPage: number;
+  size: number;
+}
+
+const StudentGridSelector = ({ classId = null }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudents, setSelectedStudents] = useState([]);
 
@@ -39,17 +50,17 @@ const StudentGridSelector = ({ classId = null }:any) => {
   // Filter out students with classId and then apply search filter
   const filteredStudents =
     studentsResponse?.data
-      .filter((student:any) => !student.studentProfile.classId)
+      .filter((student) => !student.studentProfile.classId)
       .filter(
-        (student:any) =>
+        (student) =>
           student.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
           student.email.toLowerCase().includes(searchQuery.toLowerCase())
       ) || [];
 
   const toggleStudent = (student: Student) => {
-    const isSelected = selectedStudents.find((s:any) => s.id === student.id);
-    const updatedSelection: any = isSelected
-      ? selectedStudents.filter((s:any) => s.id !== student.id)
+    const isSelected = selectedStudents.find((s) => s.id === student.id);
+    const updatedSelection = isSelected
+      ? selectedStudents.filter((s) => s.id !== student.id)
       : [...selectedStudents, student];
     setSelectedStudents(updatedSelection);
   };
@@ -80,14 +91,14 @@ const StudentGridSelector = ({ classId = null }:any) => {
   }, [isAddStudentError, isAddStudentSuccess]);
 
   const handleSave = () => {
-    const studentIds = selectedStudents.map((student:any) => student.id);
+    const studentIds = selectedStudents.map((student) => student.id);
     // console.log(studentIds,"thousi               lkl");
 
     addStudentMutate(studentIds);
   };
 
   const isStudentSelected = (studentId: number) => {
-    return selectedStudents.some((s: any) => s.id === studentId);
+    return selectedStudents.some((s) => s.id === studentId);
   };
 
   if (isLoading) {
@@ -125,7 +136,7 @@ const StudentGridSelector = ({ classId = null }:any) => {
         <div className="mb-4 p-4 bg-muted rounded-lg">
           <h3 className="text-sm font-medium mb-2">Selected Students:</h3>
           <div className="flex flex-wrap gap-2">
-            {selectedStudents.map((student:any) => (
+            {selectedStudents.map((student) => (
               <Badge
                 key={student.id}
                 variant="default"
@@ -160,7 +171,7 @@ const StudentGridSelector = ({ classId = null }:any) => {
       <ScrollArea className="h-[400px]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-1">
           {filteredStudents.length > 0 ? (
-            filteredStudents.map((student: any) => {
+            filteredStudents.map((student) => {
               const isSelected = isStudentSelected(student.id);
               return (
                 <div

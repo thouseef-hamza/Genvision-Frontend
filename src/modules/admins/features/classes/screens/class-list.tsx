@@ -32,6 +32,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useListClass } from "../store/hooks";
 import { ClassListComponent } from "../components/class-list";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import StudentGridSelector from "../components/student-list";
 import { ClassAddComp } from "../components/class-add";
 import CreateExam from "../components/create-exams";
 import SubjectList from "../components/subject-view";
@@ -39,6 +40,7 @@ import CreateSubject from "../components/subject-create";
 import CreateEvent from "../components/create-event";
 import EventList from "../components/view-event";
 import ExamList from "../components/view-exams";
+import StudentAddList from "../components/class-student-list";
 
 const TableSkeleton: React.FC = () => {
   return (
@@ -107,6 +109,7 @@ export const ClassList: React.FC = () => {
   const [isCreateEventModalOpen, setIsCreateEventModalOpen] = useState(false);
   const [isViewEventModalOpen, setIsViewEventModalOpen] = useState(false);
   const [isViewExamModalOpen, setIsViewExamModalOpen] = useState(false);
+  const [isTeacherAddModal, setIsTeacherAddModal] = useState(false);
 
   const {
     data: classData,
@@ -131,21 +134,21 @@ export const ClassList: React.FC = () => {
     return <ClassListSkeleton />;
   }
 
-  // const handleStudentSelect = (selectedStudents: any) => {
-  //   // Handle the selected subjects
-  //   console.log("Selected subjects:", selectedStudents);
-  //   // You can send this data to your backend
-  // };
+  const handleStudentSelect = (selectedStudents: any) => {
+    // Handle the selected subjects
+    console.log("Selected subjects:", selectedStudents);
+    // You can send this data to your backend
+  };
 
-  // const initialStudentSelected = [
-  //   {
-  //     id: 1,
-  //     name: "John Doe",
-  //     email: "john.doe@example.com",
-  //     phoneNumber: "555-1234",
-  //     profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
-  //   },
-  // ];
+  const initialStudentSelected = [
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+      phoneNumber: "555-1234",
+      profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
+    },
+  ];
 
   const handleClassAddModal = () => {
     setIsEditClassData(null);
@@ -169,22 +172,22 @@ export const ClassList: React.FC = () => {
     setIsEditSubjectData(data);
   };
 
-  // const students = [
-  //   {
-  //     id: 1,
-  //     name: "John Doe",
-  //     email: "john.doe@example.com",
-  //     phoneNumber: "555-1234",
-  //     profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Jane Smith",
-  //     email: "jane.smith@example.com",
-  //     phoneNumber: "555-5678",
-  //     profilePicture: "https://randomuser.me/api/portraits/women/1.jpg",
-  //   },
-  // ];
+  const students = [
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+      phoneNumber: "555-1234",
+      profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      phoneNumber: "555-5678",
+      profilePicture: "https://randomuser.me/api/portraits/women/1.jpg",
+    },
+  ];
 
   return (
     <>

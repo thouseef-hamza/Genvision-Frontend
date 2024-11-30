@@ -74,7 +74,7 @@ export const SAttendanceListAPI = async (studentId: id) => {
   return response.data;
 };
 
-export const attendanceCreateAPI = async (studentId: id, data: any) => {
+export const attendanceCreateAPI = async (studentId: id, data) => {
   const response = await api.get(
     `/admin/students/${studentId}/attendances`,
     data
@@ -256,22 +256,22 @@ export const documentDeleteAPI = async (studentId: id, id: id) => {
   return response.data;
 };
 
-export const MarkListAPI = async (id:any) => {
+export const MarkListAPI = async (id) => {
   const response = await api.get(`/admin/students/${id}/marks`);
   return response.data;
 };
 
-export const MarkCreateAPI = async (id:any, data:any) => {
+export const MarkCreateAPI = async (id, data) => {
   const response = await api.post(`/admin/students/${id}/marks`, data);
   return response.data;
 };
 
-export const InterestListAPI = async (id:any) => {
+export const InterestListAPI = async (id) => {
   const response = await api.get(`/admin/students/${id}/interests`);
   return response.data;
 };
 
-export const AIPromptAPI = async (id:any) => {
+export const AIPromptAPI = async (id) => {
   const response = await api.get(`/admin/students/${id}/ai`);
   return response.data;
 };

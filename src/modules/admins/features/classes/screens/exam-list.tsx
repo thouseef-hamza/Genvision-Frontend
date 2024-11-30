@@ -1,4 +1,4 @@
-import { ListFilter, PlusCircle } from "lucide-react";
+import { CircleChevronDown, Eye, ListFilter, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,6 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import {
   Table,
@@ -23,6 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import React, { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -54,38 +56,54 @@ const TableSkeleton: React.FC = () => {
   );
 };
 
-// const ClassListSkeleton: React.FC = () => {
-//   return (
-//     <>
-//       <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-3">
-//         <Skeleton className="h-8 w-40" />
-//         <Tabs defaultValue="all">
-//           <div className="flex items-center">
-//             <Skeleton className="h-6 w-16 rounded gap-1" />{" "}
-//             <Skeleton className="h-6 w-16 rounded" />
-//             <Skeleton className="h-6 w-16 rounded" />
-//             <div className="ml-auto flex items-center gap-2">
-//               <Skeleton className="h-8 w-24 rounded" />{" "}
-//             </div>
-//           </div>
-//           <TabsContent value="all">
-//             <Skeleton className="h-6 w-32" />
-//             <div className="max-h-[350px] overflow-auto">
-//               <TableSkeleton />
-//             </div>
-//             <div className="text-xs text-muted-foreground">
-//               <Skeleton className="h-6 w-64" />
-//             </div>
-//           </TabsContent>
-//         </Tabs>
-//       </main>
-//     </>
-//   );
-// };
+const ClassListSkeleton: React.FC = () => {
+  return (
+    <>
+      <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-3">
+        <Skeleton className="h-8 w-40" />
+        <Tabs defaultValue="all">
+          <div className="flex items-center">
+            <Skeleton className="h-6 w-16 rounded gap-1" />{" "}
+            <Skeleton className="h-6 w-16 rounded" />
+            <Skeleton className="h-6 w-16 rounded" />
+            <div className="ml-auto flex items-center gap-2">
+              <Skeleton className="h-8 w-24 rounded" />{" "}
+            </div>
+          </div>
+          <TabsContent value="all">
+            <Skeleton className="h-6 w-32" />
+            <div className="max-h-[350px] overflow-auto">
+              <TableSkeleton />
+            </div>
+            <div className="text-xs text-muted-foreground">
+              <Skeleton className="h-6 w-64" />
+            </div>
+          </TabsContent>
+        </Tabs>
+      </main>
+    </>
+  );
+};
 
 export const ExamListPreview: React.FC = () => {
+  const students = [
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+      phoneNumber: "555-1234",
+      profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      phoneNumber: "555-5678",
+      profilePicture: "https://randomuser.me/api/portraits/women/1.jpg",
+    },
+  ];
 
-  const { data: examList, isLoading } = useListExam({});
+  const { data: examList, isLoading, isSuccess, isError } = useListExam();
 
   const [isCreateExamModalOpen, setIsCreateExamModalOpen] = useState(false);
 

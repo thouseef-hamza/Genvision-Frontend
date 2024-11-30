@@ -1,11 +1,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal, Trophy } from "lucide-react";
 import {
   useSAddressListAPI,
   useSInterestListAPI,
   useViewStudents,
 } from "../store/hooks";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 const OverviewTabSkeleton = () => {
   return (
@@ -91,17 +101,18 @@ const OverviewTabSkeleton = () => {
   );
 };
 
-const OverviewTab = ({ studentId }: any) => {
+const OverviewTab = ({ studentId }) => {
   const {
     data: STUDENT_DATA,
     isLoading: STUDENT_DATA_LOADING,
+    isSuccess: STUDENT_DATA_SUCCESS,
   } = useViewStudents(studentId);
 
   const { data: STUDENT_ADDRESSES, isLoading: STUDENT_ADDRESSES_LOADING } =
     useSAddressListAPI(studentId);
 
-  const { data: INTEREST_DATA } = useSInterestListAPI(studentId);
-    
+  const { data: INTEREST_DATA, isLoading: isInterestLoading } =
+    useSInterestListAPI(studentId);
 
   return (
     <div className="grid grid-cols-3 gap-4">
@@ -146,7 +157,7 @@ const OverviewTab = ({ studentId }: any) => {
               {STUDENT_ADDRESSES?.data.length > 0 && (
                 <div className="mt-4">
                   <h2 className="text-md font-semibold">Address</h2>
-                  {STUDENT_ADDRESSES?.data.map((address:any) => (
+                  {STUDENT_ADDRESSES?.data.map((address) => (
                     <>
                       <p className="text-sm">
                         Address: <strong>{address.streetAddress}</strong>
@@ -175,7 +186,7 @@ const OverviewTab = ({ studentId }: any) => {
             <CardContent>
               <p className="font-extrabold">Interest</p>
               <div className="grid grid-cols-2 gap-4">
-                {INTEREST_DATA?.data.map((interest:any) => (
+                {INTEREST_DATA?.data.map((interest) => (
                   <div
                     key={interest.id}
                     className="flex items-center p-3 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"

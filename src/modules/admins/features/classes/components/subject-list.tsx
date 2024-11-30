@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import {  X, CheckCircle2, Save, Loader2 } from "lucide-react";
+import { Search, X, CheckCircle2, Save, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { useAddSubjectsToClass, useGetSubjectsFromClass } from "../store/hooks";
@@ -8,6 +9,7 @@ import { toast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const SubjectGridSelector = ({
+  onSubjectSelect,
   modalAction,
   subjects = [],
   classId,
@@ -18,13 +20,13 @@ const SubjectGridSelector = ({
     isSuccess: getSubjectsSuccess,
   } = useGetSubjectsFromClass(classId);
 
-  const searchQuery = "";
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubjects, setSelectedSubjects] = useState([]);
 
   useEffect(() => {
     if (getSubjectsSuccess && subjectList) {
-      const getSubjectsUsingId = subjects.filter((subject: any) =>
-        subjectList.subjectIds.some((item: any) => item === subject.id)
+      const getSubjectsUsingId = subjects.filter((subject) =>
+        subjectList.subjectIds.some((item) => item === subject.id)
       );
       setSelectedSubjects(getSubjectsUsingId);
     }
@@ -62,8 +64,8 @@ const SubjectGridSelector = ({
     if (isAddError) {
       toast({
         variant: "destructive",
+        // @ts-ignore
         title:
-          // @ts-ignore
           addSubjectError?.response?.data?.message ||
           "Uh oh! Something went wrong during adding the subjects.",
         description: "Try Again",
@@ -79,12 +81,12 @@ const SubjectGridSelector = ({
     }
   }, [isAddError, isAddSuccess]);
 
-  const submitSubjectstoClass = (e: any) => {
+  const submitSubjectstoClass = (e) => {
     e.preventDefault();
     console.log("handle subject triggered");
     console.log(classId);
 
-    const subjectIds = selectedSubjects.map((subject: any) => subject.id);
+    const subjectIds = selectedSubjects.map((subject) => subject.id);
     console.log(subjectIds, "onnooodey nokkate");
 
     if (classId) {

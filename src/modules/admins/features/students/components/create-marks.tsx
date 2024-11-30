@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -19,17 +20,17 @@ import { Label } from "@/components/ui/label";
 import Yup from "@/lib/utils";
 import { useFormik } from "formik";
 import { useListExam } from "../../classes/store/hooks";
-import { useSMarkCreateAPI } from "../store/hooks";
+import { useSMarkCreateAPI, useSMarkListAPI } from "../store/hooks";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
-const ExamGradeModal = ({ modalAction, studentId }:any) => {
+const ExamGradeModal = ({ modalAction, studentId }) => {
   const { data: EXAMS_LIST } = useListExam({ studentId });
 
   // Helper function to get exam name by id
-  const getExamNameById = (examId:any) => {
+  const getExamNameById = (examId) => {
     if (!EXAMS_LIST?.data) return "";
-    const exam = EXAMS_LIST.data.find((exam:any) => exam.id === Number(examId));
+    const exam = EXAMS_LIST.data.find((exam) => exam.id === Number(examId));
     return exam ? exam.name : "";
   };
 
@@ -89,7 +90,7 @@ const ExamGradeModal = ({ modalAction, studentId }:any) => {
     if (!formik.values.examId || !EXAMS_LIST?.data) return [];
 
     const selectedExam = EXAMS_LIST.data.find(
-      (exam : any) => exam.id === Number(formik.values.examId)
+      (exam) => exam.id === Number(formik.values.examId)
     );
 
     console.log("Selected exam:", selectedExam);
@@ -146,7 +147,7 @@ const ExamGradeModal = ({ modalAction, studentId }:any) => {
             </SelectTrigger>
             <SelectContent>
               {EXAMS_LIST?.data?.length ? (
-                EXAMS_LIST.data.map((exam : any) => (
+                EXAMS_LIST.data.map((exam) => (
                   <SelectItem key={exam.id} value={String(exam.id)}>
                     {exam.name}
                   </SelectItem>
@@ -182,7 +183,7 @@ const ExamGradeModal = ({ modalAction, studentId }:any) => {
             </SelectTrigger>
             <SelectContent>
               {subjects.length > 0 ? (
-                subjects.map((subject:any) => (
+                subjects.map((subject) => (
                   <SelectItem key={subject.id} value={String(subject.id)}>
                     {subject.Subject.name}
                   </SelectItem>

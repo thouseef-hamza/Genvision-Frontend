@@ -86,12 +86,12 @@ const SubjectList = () => {
       name: Yup.string().required("Subject Name is required"),
       code: Yup.string().optional(),
     }),
-    onSubmit: (values:any) => {
+    onSubmit: (values) => {
       updateMutate(subjectId, values);
     },
   });
 
-  const handleSubjectForm = (data: any, action:any = "") => {
+  const handleSubjectForm = (data: any, action = "") => {
     setSubjectPreviewAction(action);
     setSubjectId(data.id);
     setValues({ name: data.name, code: data.code });
@@ -101,8 +101,8 @@ const SubjectList = () => {
     if (isUpdateError) {
       toast({
         variant: "destructive",
-        title:
         // @ts-ignore
+        title:
           updateError?.response?.data?.message ||
           "Uh oh! Something went wrong during creation.",
         description: "Try Again",
