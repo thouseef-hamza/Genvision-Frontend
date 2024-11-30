@@ -23,16 +23,7 @@ const loginAPI = async ({
     email,
     password,
   });
-const loginAPI = async ({
-  email,
-  password,
-}: LoginCredentials): Promise<any> => {
-  const { data } = await axios.post<any>(`${getBaseURL()}/auth/login`, {
-    email,
-    password,
-  });
-  return data;
-};
+}
 
 // Define the useLogin hook
 export const useLogin = () => {
