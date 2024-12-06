@@ -25,7 +25,7 @@ const App: FC = () => {
             <Route path="admin/*" element={<AdminNavigator />} />
             <Route path="teacher/*" element={<TeacherNavigator />} />
             <Route path="student/*" element={<StudentNavigator />} />
-            <Route path="super_admin/*" element={<SuperAdminNavigator />} />
+            <Route path="superadmin/*" element={<SuperAdminNavigator />} />
             {/* <Route path="parent/thousi/" element={<Dashboard />} /> */}
           </Routes>
         </Provider>

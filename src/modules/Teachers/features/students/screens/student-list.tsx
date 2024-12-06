@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { StudentListComponent } from "../components/student-list";
 import { useEffect, useState } from "react";
 import { NoListComponent } from "@/modules/admins/components/no-list";
@@ -49,6 +49,7 @@ interface Student {
 
 export function StudentList() {
   const [activeTab, setActiveTab] = useState<string>("all");
+  // @ts-ignore
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
 
   const students: Student[] = [
@@ -106,11 +107,10 @@ export function StudentList() {
       if (activeTab === "late") return student.status === "Late";
       return true; // For 'all'
     });
-    console.log(filtered);
     setFilteredStudents(filtered);
   }, [activeTab]);
 
-  const { data: STUDENT_DATA, isLoading } = useListStudent()
+  const { data: STUDENT_DATA } = useListStudent()
 
   return (
     <>

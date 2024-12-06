@@ -1,15 +1,7 @@
 import {
-  BookOpenCheck,
-  BookText,
-  Calendar,
   Command,
   Home,
-  Inbox,
-  NotebookPen,
   School,
-  Search,
-  Settings,
-  Users,
 } from "lucide-react";
 
 import {
@@ -31,12 +23,12 @@ import { Link } from "react-router-dom";
 const items = [
   {
     title: "Dashboard",
-    url: "/super_admin/",
+    url: "/superadmin/",
     icon: Home,
   },
   {
     title: "School",
-    url: "/super_admin/school",
+    url: "/superadmin/school",
     icon: School,
   }
 ];

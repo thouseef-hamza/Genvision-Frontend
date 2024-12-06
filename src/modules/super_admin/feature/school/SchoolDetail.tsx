@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Tabs from "./Tabs";
-import { SchoolStudentListApi, SchoolTeacherListApi } from "../../store/api";
+import { SchoolStudentListApi } from "../../store/api";
 
 const SchoolDetail: React.FC = () => {
   const { schoolId } = useParams();
@@ -102,6 +102,7 @@ console.log("students",students?.data)
           ) : studentsError ? (
             <p>Error fetching data. Please try again later.</p>
           ) : (
+            // @ts-ignore
             <Tabs students={students?.data} teachers={[]}/>
           )}
         </div>

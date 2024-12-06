@@ -1,6 +1,6 @@
 // SuperAdminDashboard.tsx
-import React, { useState } from "react";
-import SchoolMap from "./SchoolMap"; // Import the map component
+import  { useState } from "react";
+// import SchoolMap from "./SchoolMap"; // Import the map component
 import Dashboard from "./Dashboard"; // Import the chart component
 import AdmissionStats from "./AdmissionStats";
 import RevenueAnalysis from "./RevenueAnalysis";
@@ -49,7 +49,7 @@ const SuperAdminDashboard = () => {
       </div>
 
       {/* Tab Content */}
-      {activeTab === "map" && <SchoolMap />}
+      {/* {activeTab === "map" && <SchoolMap />} */}
       {activeTab === "chart" && <Dashboard />}
       {activeTab === "admission" && <AdmissionStats />}
       {activeTab === "revenue" && <RevenueAnalysis />}

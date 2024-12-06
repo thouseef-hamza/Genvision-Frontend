@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ type student = {
 type props = {
   students: student[];
 };
-
+// @ts-ignore
 const Tabs: React.FC = ({ students }: props) => {
   const [activeTab, setActiveTab] = useState("students");
   const navigate = useNavigate();

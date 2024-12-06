@@ -8,8 +8,8 @@ const AddSchoolForm: React.FC = () => {
   const navigate = useNavigate();
 
   // React Query mutation hook
-  const { mutateAsync, isLoading, isError, error } = useMutation({
-    mutationFn: CreateSchoolApi, // Pass CreateSchoolApi as mutationFn
+  const { mutateAsync, isError, error,isPending:isLoading } = useMutation({
+    mutationFn: CreateSchoolApi,
   });
 
   const formik = useFormik({
@@ -33,7 +33,7 @@ const AddSchoolForm: React.FC = () => {
     onSubmit: async (values) => {
       try {
         await mutateAsync(values); // Pass form values to the mutation function
-        navigate("/super_admin/school"); // Navigate on success
+        navigate("/superadmin/school"); // Navigate on success
       } catch (error) {
         console.error("Error creating school:", error);
       }
